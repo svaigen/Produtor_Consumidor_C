@@ -17,6 +17,7 @@
 #include <string.h>
 #include <time.h>
 #include "buffer_tarefas.h"
+#include "buffer_individuos.h"
 
 struct par_inteiros {
     int a;
@@ -29,11 +30,13 @@ int n_threads;
 int tam_buffer_tarefas;
 int tam_buffer_novos_individuos;
 int populacao[MAX_TAM_POPULACAO];
-int * buffer_novos_individuos;
-sem_t sem_exc_mutua;
-sem_t sem_is_cheio;
-sem_t sem_is_vazio;
+buffer_individuos buffer_novos_individuos;
+sem_t sem_mutex_tarefas;
+sem_t sem_is_cheio_tarefas;
+sem_t sem_is_vazio_tarefas;
+sem_t sem_mutex_individuos;
+sem_t sem_is_vazio_individuos;
+sem_t sem_mutex_populacao;
 buffer_tarefas buffer_t;
 
 #endif	/* MAIN_H */
-
