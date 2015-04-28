@@ -16,7 +16,7 @@
 #include <semaphore.h>
 #include <string.h>
 #include <time.h>
-#include "lista.h"
+#include "lista_ligada.h"
 
 struct par_inteiros {
     int a;
@@ -33,7 +33,7 @@ int * buffer_novos_individuos;
 sem_t sem_exc_mutua;
 sem_t sem_is_cheio;
 sem_t sem_is_vazio;
-lista buffer_tarefas;
+lista_ligada buffer_tarefas;
 
 #endif	/* MAIN_H */
 

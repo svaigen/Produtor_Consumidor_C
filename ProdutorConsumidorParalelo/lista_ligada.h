@@ -1,5 +1,5 @@
 /* 
- * File:   lista.h
+ * File:   lista_ligada.h
  * Author: svaigen
  *
  * Created on April 24, 2015, 4:40 PM
@@ -14,18 +14,18 @@
 
 #define MAX_TAM_BUFFER_TAREFAS 1024
 
-struct lista{
+struct lista_ligada{
     int buffer[MAX_TAM_BUFFER_TAREFAS];
     int pos_remocao;
     int pos_insercao;
     int fim_fisico;
 };
 
-typedef struct lista lista;
+typedef struct lista_ligada lista_ligada;
 
-void lista_inicializa(int tamanho, lista* l);
-void lista_add(lista* l, int n);
-int lista_remove(lista* l);
-void lista_imprime(lista* l);
+void lista_inicializa(int tamanho, lista_ligada* l);
+void lista_add(lista_ligada* l, int n);
+int lista_remove(lista_ligada* l);
+void lista_imprime(lista_ligada* l);
 #endif	/* LISTA_H */
 
