@@ -35,15 +35,15 @@ void *produz(void* id) {
         p.b = (s.a * s.a) / (s.a + s.b);
         sem_wait(&sem_is_vazio);
         sem_wait(&sem_exc_mutua);
-        lista_add(&buffer_tarefas, p.a);
-        //lista_imprime(&buffer_tarefas);
+        buffer_tarefas_add(&buffer_t, p.a);
+        //lista_imprime(&buffer_t);
         sem_post(&sem_exc_mutua);
         sem_post(&sem_is_cheio);
 
         sem_wait(&sem_is_vazio);
         sem_wait(&sem_exc_mutua);
-        lista_add(&buffer_tarefas, p.b);
-        //lista_imprime(&buffer_tarefas);
+        buffer_tarefas_add(&buffer_t, p.b);
+        //lista_imprime(&buffer_t);
         sem_post(&sem_exc_mutua);
         sem_post(&sem_is_cheio);
     }
@@ -55,27 +55,27 @@ void *consome(void* id) {
         printf("Consumidor %d acessa buffer de tarefas \n", *pid);
         sem_wait(&sem_is_cheio);
         sem_wait(&sem_exc_mutua);
-        int n = lista_remove(&buffer_tarefas);
+        int n = buffer_tarefas_remove(&buffer_t);
         sem_post(&sem_exc_mutua);
         sem_post(&sem_is_vazio);
         int i;
         for (i = 0; i < 2147483647; i++);                        
         for (i = 0; i < 2147483647; i++);                        
-        //lista_imprime(&buffer_tarefas);
+        //lista_imprime(&buffer_t);
     }
 }
 
 void preenche_populacao_inicial() {
     int i = 0;
     srand(time(NULL));
-    for (i; i < TAM_POPULACAO; i++) {
+    for (i; i < MAX_TAM_POPULACAO; i++) {
         populacao[i] = rand() % 100;
     }
 }
 
 void imprime_populacao() {
     int i = 0;
-    for (i; i < TAM_POPULACAO; i++) {
+    for (i; i < MAX_TAM_POPULACAO; i++) {
         printf("Individuo %d -> %d\n", i, populacao[i]);
     }
 
@@ -84,7 +84,7 @@ void imprime_populacao() {
 int main(int argc, char** argv) {
     n_threads = atoi(argv[1]);
     tam_buffer_tarefas = atoi(argv[2]);
-    lista_inicializa(tam_buffer_tarefas, &buffer_tarefas);
+    buffer_tarefas_inicializa(tam_buffer_tarefas, &buffer_t);
     //lista_imprime(&buffer_tarefas);
     tam_buffer_novos_individuos = atoi(argv[3]);
 

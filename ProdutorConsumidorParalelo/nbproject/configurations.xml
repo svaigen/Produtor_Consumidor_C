@@ -4,7 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>lista_ligada.h</itemPath>
+      <itemPath>buffer_individuos.h</itemPath>
+      <itemPath>buffer_tarefas.h</itemPath>
       <itemPath>main.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -14,7 +15,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>lista_ligada.c</itemPath>
+      <itemPath>buffer_individuos.c</itemPath>
+      <itemPath>buffer_tarefas.c</itemPath>
       <itemPath>main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -39,9 +41,13 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="lista_ligada.c" ex="false" tool="0" flavor2="0">
+      <item path="buffer_individuos.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="lista_ligada.h" ex="false" tool="3" flavor2="0">
+      <item path="buffer_individuos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="buffer_tarefas.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="buffer_tarefas.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -68,9 +74,13 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="lista_ligada.c" ex="false" tool="0" flavor2="0">
+      <item path="buffer_individuos.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="lista_ligada.h" ex="false" tool="3" flavor2="0">
+      <item path="buffer_individuos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="buffer_tarefas.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="buffer_tarefas.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

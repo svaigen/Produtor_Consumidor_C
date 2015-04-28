@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/lista_ligada.o \
+	${OBJECTDIR}/buffer_individuos.o \
+	${OBJECTDIR}/buffer_tarefas.o \
 	${OBJECTDIR}/main.o
 
 
@@ -63,10 +64,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/produtorconsumidorparalelo: ${OBJECTF
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/produtorconsumidorparalelo ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/lista_ligada.o: lista_ligada.c 
+${OBJECTDIR}/buffer_individuos.o: buffer_individuos.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lista_ligada.o lista_ligada.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/buffer_individuos.o buffer_individuos.c
+
+${OBJECTDIR}/buffer_tarefas.o: buffer_tarefas.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/buffer_tarefas.o buffer_tarefas.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}

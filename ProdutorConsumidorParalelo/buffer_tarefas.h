@@ -14,18 +14,19 @@
 
 #define MAX_TAM_BUFFER_TAREFAS 1024
 
-struct lista_ligada{
+struct buffer_tarefas{
     int buffer[MAX_TAM_BUFFER_TAREFAS];
     int pos_remocao;
     int pos_insercao;
     int fim_fisico;
 };
 
-typedef struct lista_ligada lista_ligada;
+typedef struct buffer_tarefas buffer_tarefas;
 
-void lista_inicializa(int tamanho, lista_ligada* l);
-void lista_add(lista_ligada* l, int n);
-int lista_remove(lista_ligada* l);
-void lista_imprime(lista_ligada* l);
+void buffer_tarefas_inicializa(int tamanho, buffer_tarefas* l);
+void buffer_tarefas_add(buffer_tarefas* l, int n);
+int buffer_tarefas_remove(buffer_tarefas* l);
+void buffer_tarefas_imprime(buffer_tarefas* l);
+
 #endif	/* LISTA_H */
 
