@@ -6,6 +6,7 @@
  */
 
 #include "main.h"
+
 par_inteiros sorteia() {
     par_inteiros p;
     int i;
@@ -52,6 +53,14 @@ void *consome(void* id) {
         int i;
         for (i = 0; i < 2147483647; i++);
         for (i = 0; i < 2147483647; i++);
+        sem_wait(&sem_prenche_individuos);
+        sem_wait(&sem_mutex_individuos);
+        buffer_individuos_add(&buffer_novos_individuos,n);
+        if(buffer_individuos_is_cheio(&buffer_novos_individuos)){
+            printf("tem que atualizar \n");
+            sem_post(&sem_atualiza_pop);
+        }
+        sem_post(&sem_mutex_individuos);        
         //lista_imprime(&buffer_t);
     }
 }
@@ -72,11 +81,31 @@ void imprime_populacao() {
 
 }
 
+void *atualiza_populacao(void* id) {
+    while (1) {
+        sem_wait(&sem_mutex_att_populacao);
+        printf("Vai atualizar \n");
+        int melhor = buffer_individuos_seleciona_melhor(&buffer_novos_individuos);
+        sem_wait(&sem_mutex_individuos);
+        buffer_individuos_esvazia(&buffer_novos_individuos);
+        sem_post(&sem_mutex_individuos);
+        int i;
+        for (i = 0; i < buffer_novos_individuos.fim_logico; i++) {
+            sem_post(&sem_prenche_individuos);
+        }
+        /*
+         * TODO: atualizapopulacao
+         */
+    }
+
+
+}
+
 int main(int argc, char** argv) {
     /*Captura dos parametros*/
     n_threads = atoi(argv[1]);
-    tam_buffer_tarefas = atoi(argv[2]);
-    tam_buffer_novos_individuos = atoi(argv[3]);
+    tam_buffer_tarefas = n_threads * 2;
+    tam_buffer_novos_individuos = n_threads;
 
     /*Inicializacao de buffers, populacao e semaforos*/
     buffer_tarefas_inicializa(tam_buffer_tarefas, &buffer_t);
@@ -85,18 +114,22 @@ int main(int argc, char** argv) {
     sem_init(&sem_mutex_tarefas, 0, 1); //semaforo binario
     sem_init(&sem_is_cheio_tarefas, 0, 0); //semaforo de 0 a tam_buffer_tarefas
     sem_init(&sem_is_vazio_tarefas, 0, tam_buffer_tarefas); //semaforo de 0 a tam_buffer_tarefas
+    sem_init(&sem_prenche_individuos, 0, tam_buffer_novos_individuos); //semaforo de 0 a tam_buffer_novos_individuos
+    sem_init(&sem_mutex_att_populacao, 0, 0);
+    sem_init(&sem_mutex_individuos, 0, 1); //semaforo binario
 
     /*Ativacao das threads*/
-    pthread_t threads[n_threads + 1];
+    pthread_t threads[n_threads + 2];
     int t;
-    int z = 0;
+    int z = 1;
     pthread_create(&threads[0], NULL, produz, &z);
     for (t = 1; t <= n_threads; t++) {
         int *n = malloc(sizeof (int));
-        *n = t * 10;
+        *n = t;
         pthread_create(&threads[t], NULL, consome, n);
     }
-    for (t = 0; t < n_threads; t++) {
+    pthread_create(&threads[n_threads + 1], NULL, atualiza_populacao, &z);
+    for (t = 0; t < (n_threads + 2); t++) {
         pthread_join(threads[t], NULL);
     }
 }

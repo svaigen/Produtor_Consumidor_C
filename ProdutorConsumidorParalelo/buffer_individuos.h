@@ -23,10 +23,8 @@ void buffer_individuos_add(buffer_individuos* b, int n);
 int buffer_individuos_esvazia(buffer_individuos* b);
 void buffer_individuos_imprime(buffer_individuos* b);
 int buffer_individuos_is_cheio(buffer_individuos* b);
-/*
- * TODO
- * <tipo> buffer_individuos_seleciona_melhor(buffer_individuos* b);
- */
+int buffer_individuos_seleciona_melhor(buffer_individuos* b);
+
 
 #endif	/* BUFFER_INDIVIDUOS_H */
 

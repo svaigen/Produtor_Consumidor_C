@@ -35,8 +35,9 @@ sem_t sem_mutex_tarefas;
 sem_t sem_is_cheio_tarefas;
 sem_t sem_is_vazio_tarefas;
 sem_t sem_mutex_individuos;
-sem_t sem_is_vazio_individuos;
-sem_t sem_mutex_populacao;
+sem_t sem_prenche_individuos;
+sem_t sem_mutex_att_populacao;
+sem_t sem_atualiza_pop;
 buffer_tarefas buffer_t;
 
 par_inteiros sorteia();
@@ -44,6 +45,5 @@ void *produz(void* id);
 void *consome(void* id);
 void preenche_populacao_inicial();
 void imprime_populacao();
-
-
+void *atualiza_populacao(void* id);
 #endif	/* MAIN_H */
