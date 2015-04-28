@@ -57,8 +57,7 @@ void *consome(void* id) {
         sem_wait(&sem_mutex_individuos);
         buffer_individuos_add(&buffer_novos_individuos,n);
         if(buffer_individuos_is_cheio(&buffer_novos_individuos)){
-            printf("tem que atualizar \n");
-            sem_post(&sem_atualiza_pop);
+            sem_post(&sem_mutex_att_populacao);
         }
         sem_post(&sem_mutex_individuos);        
         //lista_imprime(&buffer_t);
@@ -84,7 +83,7 @@ void imprime_populacao() {
 void *atualiza_populacao(void* id) {
     while (1) {
         sem_wait(&sem_mutex_att_populacao);
-        printf("Vai atualizar \n");
+        printf("Vai atualizar\n");
         int melhor = buffer_individuos_seleciona_melhor(&buffer_novos_individuos);
         sem_wait(&sem_mutex_individuos);
         buffer_individuos_esvazia(&buffer_novos_individuos);
@@ -92,6 +91,8 @@ void *atualiza_populacao(void* id) {
         int i;
         for (i = 0; i < buffer_novos_individuos.fim_logico; i++) {
             sem_post(&sem_prenche_individuos);
+            int *n = malloc(sizeof(int));
+            sem_getvalue(&sem_prenche_individuos,n);
         }
         /*
          * TODO: atualizapopulacao
