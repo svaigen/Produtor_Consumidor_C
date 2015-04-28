@@ -6,15 +6,6 @@
  */
 
 #include "main.h"
-
-void imprime_semaforos() {
-    int ve, vv, vc;
-    sem_getvalue(&sem_mutex_tarefas, &ve);
-    sem_getvalue(&sem_is_vazio_tarefas, &vv);
-    sem_getvalue(&sem_is_cheio_tarefas, &vc);
-    printf("e_m: %d; v: %d; c: %d\n", ve, vv, vc);
-}
-
 par_inteiros sorteia() {
     par_inteiros p;
     int i;
