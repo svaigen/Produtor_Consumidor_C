@@ -36,8 +36,8 @@ sem_t sem_is_cheio_tarefas;
 sem_t sem_is_vazio_tarefas;
 sem_t sem_mutex_individuos;
 sem_t sem_prenche_individuos;
-sem_t sem_mutex_att_populacao;
-sem_t sem_atualiza_pop;
+sem_t sem_atualiza_populacao;
+sem_t sem_mutex_populacao;
 buffer_tarefas buffer_t;
 
 par_inteiros sorteia();

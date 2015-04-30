@@ -55,11 +55,11 @@ void *consome(void* id) {
         for (i = 0; i < 2147483647; i++);
         sem_wait(&sem_prenche_individuos);
         sem_wait(&sem_mutex_individuos);
-        buffer_individuos_add(&buffer_novos_individuos,n);
-        if(buffer_individuos_is_cheio(&buffer_novos_individuos)){
-            sem_post(&sem_mutex_att_populacao);
+        buffer_individuos_add(&buffer_novos_individuos, n);
+        if (buffer_individuos_is_cheio(&buffer_novos_individuos)) {
+            sem_post(&sem_atualiza_populacao);
         }
-        sem_post(&sem_mutex_individuos);        
+        sem_post(&sem_mutex_individuos);
         //lista_imprime(&buffer_t);
     }
 }
@@ -74,16 +74,17 @@ void preenche_populacao_inicial() {
 
 void imprime_populacao() {
     int i = 0;
+    printf("---Imprimindo Populacao: [ ");
     for (i; i < MAX_TAM_POPULACAO; i++) {
-        printf("Individuo %d -> %d\n", i, populacao[i]);
+        printf("%d ",populacao[i]);
     }
+    printf("] ---\n");
 
 }
 
 void *atualiza_populacao(void* id) {
     while (1) {
-        sem_wait(&sem_mutex_att_populacao);
-        printf("Vai atualizar\n");
+        sem_wait(&sem_atualiza_populacao);
         int melhor = buffer_individuos_seleciona_melhor(&buffer_novos_individuos);
         sem_wait(&sem_mutex_individuos);
         buffer_individuos_esvazia(&buffer_novos_individuos);
@@ -91,12 +92,21 @@ void *atualiza_populacao(void* id) {
         int i;
         for (i = 0; i < buffer_novos_individuos.fim_logico; i++) {
             sem_post(&sem_prenche_individuos);
-            int *n = malloc(sizeof(int));
-            sem_getvalue(&sem_prenche_individuos,n);
+            int *n = malloc(sizeof (int));
+            sem_getvalue(&sem_prenche_individuos, n);
         }
-        /*
-         * TODO: atualizapopulacao
-         */
+
+        /*Codigo de atualizacao*/
+        int substituir = 0;
+        sem_wait(&sem_mutex_populacao);
+        for (i = 1; i < MAX_TAM_POPULACAO; i++) {
+            if (populacao[substituir] < populacao[i]) {
+                substituir = i;
+            }
+        }
+        populacao[substituir] = melhor;
+        sem_post(&sem_mutex_populacao);
+        imprime_populacao();
     }
 
 
@@ -116,9 +126,12 @@ int main(int argc, char** argv) {
     sem_init(&sem_is_cheio_tarefas, 0, 0); //semaforo de 0 a tam_buffer_tarefas
     sem_init(&sem_is_vazio_tarefas, 0, tam_buffer_tarefas); //semaforo de 0 a tam_buffer_tarefas
     sem_init(&sem_prenche_individuos, 0, tam_buffer_novos_individuos); //semaforo de 0 a tam_buffer_novos_individuos
-    sem_init(&sem_mutex_att_populacao, 0, 0);
+    sem_init(&sem_atualiza_populacao, 0, 0); //semaforo binario
     sem_init(&sem_mutex_individuos, 0, 1); //semaforo binario
+    sem_init(&sem_mutex_populacao, 0, 1); //semaforo binario
 
+    imprime_populacao();
+    
     /*Ativacao das threads*/
     pthread_t threads[n_threads + 2];
     int t;

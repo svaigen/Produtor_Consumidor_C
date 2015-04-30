@@ -4,4 +4,15 @@
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/main.h</file>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/buffer_individuos.h</file>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/main.c</file>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/buffer_tarefas.h</file>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/buffer_individuos.c</file>
+            <file>file:/home/svaigen/NetBeansProjects/Produtor_Consumidor_C/ProdutorConsumidorParalelo/buffer_tarefas.c</file>
+        </group>
+    </open-files>
 </project-private>
